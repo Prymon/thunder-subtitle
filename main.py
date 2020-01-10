@@ -8,6 +8,8 @@ import requests
 from core.scanner import scan_files_in_dir
 from core.subtitle import search
 
+OVERWRITE = False
+
 
 def check_file_is_movie(file_path):
     return os.path.exists(file_path) and os.path.isfile(file_path) and os.path.getsize(file_path) > 50000000
@@ -32,7 +34,8 @@ def download_file(url, save_path):
 
 
 def check_subtitle_exists(file_path):
-    return False
+    if OVERWRITE:
+        return False
     movie_name = os.path.basename(file_path)
     movie_dir = os.path.dirname(file_path)
     movie_name = movie_name if movie_name.rfind(".") == -1 else movie_name[:movie_name.rfind(".")]
@@ -58,7 +61,7 @@ def process(file_path):
             return
         subtitle_name, download_url = search_result[0], search_result[1]
         subtitle_file_path = file_path_to_subtitle_file_path(file_path, subtitle_name)
-        if True or not os.path.exists(subtitle_file_path):
+        if OVERWRITE or not os.path.exists(subtitle_file_path):
             print(f"download sub from {download_url} to {subtitle_file_path}")
             download_file(download_url, subtitle_file_path)
     except Exception:
@@ -73,5 +76,5 @@ if __name__ == '__main__':
         print("input movie dir path")
         exit(1)
     path = argv[1]
+    OVERWRITE = True if len(argv) > 2 else False
     scan_files_in_dir(path, process)
-    process(path)

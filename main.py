@@ -49,6 +49,7 @@ def process(file_path):
             return
         # check if already has subtitle
         if check_subtitle_exists(file_path):
+            print(f"subtitle exists {file_path}")
             return
         # download
         search_result = search(file_path)

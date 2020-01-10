@@ -70,7 +70,7 @@ def get_sub_info_list(cid: str, max_retry_times: int = 0):
 def check_is_chinese(download_url):
     r = requests.get(download_url)
     content_bytes = r.content
-    if type() == bytes:
+    if type(content_bytes) == bytes:
         new_str = content_bytes.decode('utf-8', errors='ignore')
         if check_contains_chinese(new_str):
             return True

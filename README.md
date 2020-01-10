@@ -1,12 +1,17 @@
 # thanks to [weaming/thunder-subtitle](https://github.com/weaming/thunder-subtitle)
 # scan files > 50MB and download subtitle from thunder service
 
-# dependency
-python3
+# dependency(use python 3.*)
+
+## 1. install conda
+wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda-latest-Linux-x86_64.sh
+install：https://www.jianshu.com/p/edaa744ea47d
+
+## 2. enter conda
+source $conda_home/bin/activate
+conda create -n python37 python=3.7
 pip install request
 
-# usage
-python3 ./main.py $your_movie_dir_path
-
-eg:
-./main.py /volume1/z/电影
+## 3. run
+cd $thunder-subtitle
+./main.py /volume1/z/movie

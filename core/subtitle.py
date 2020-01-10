@@ -10,7 +10,6 @@ import requests
 def search(file_path, prefer_language=['简体', '中文', '简', '中', 'implify', 'IMPLIFY', 'hinese', 'HINESE', '繁体', '繁', 'riditional']):
     # 获取一个本地电影文件名为cid的hash值
     cid = cid_hash_file(file_path)
-    cid = '26F54DB95A6B26A0B372E8A7EFC1476ADE4A889F'
     info_list = get_sub_info_list(cid, 100)
     print(info_list)
     # find the beast one

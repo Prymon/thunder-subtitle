@@ -7,7 +7,7 @@ import os
 import requests
 
 
-def search(file_path, prefer_language=['简体', '中文', '简', '中', 'implify', 'IMPLIFY', 'hinese', 'HINESE', '繁体', '繁', 'riditional']):
+def search(file_path):
     # 获取一个本地电影文件名为cid的hash值
     cid = cid_hash_file(file_path)
     info_list = get_sub_info_list(cid, 100)
@@ -16,14 +16,10 @@ def search(file_path, prefer_language=['简体', '中文', '简', '中', 'implif
     if not info_list:
         return None
     for info in info_list:
-        for lang in prefer_language:
-            if lang in info['language']:
-                return info['sname'], info['surl']
-    for info in info_list:
-        for lang in prefer_language:
-            if lang in info['sname']:
-                return info['sname'], info['surl']
-    return info_list[0]['sname'], info_list[0]['surl']
+        download_url = info['surl']
+        if check_is_chinese(download_url):
+            return info['sname'], info['surl']
+    return None
 
 
 def cid_hash_file(path: str):
@@ -71,24 +67,23 @@ def get_sub_info_list(cid: str, max_retry_times: int = 0):
     return [i for i in result if i]
 
 
-if __name__ == '__main__':
-    res = search("../main.py")
-    print(json.dumps(res, indent=2, ensure_ascii=False))
-    # def get_url(url):
-    #     response = urllib.request.urlopen(url)
-    #     data = response.read()
-    #     return data
-    #
-    #
-    # def main():
-    #     import argparse
-    #     parser = argparse.ArgumentParser()
-    #     parser.add_argument('path', help='movie path')
-    #     parser.add_argument('-i', '--index', type=int, help='index to download')
-    #     args = parser.parse_args()
-    #
-    #     info_list = search(args.path)
-    #
-    #
-    # if __name__ == '__main__':
-    #     main()
+def check_is_chinese(download_url):
+    r = requests.get(download_url)
+    content_bytes = r.content
+    if type() == bytes:
+        new_str = content_bytes.decode('utf-8', errors='ignore')
+        if check_contains_chinese(new_str):
+            return True
+        new_str = content_bytes.decode('gbk', errors='ignore')
+        if check_contains_chinese(new_str):
+            return True
+    elif check_contains_chinese(content_bytes):
+        return True
+    return False
+
+
+def check_contains_chinese(unicode_str):
+    for c in unicode_str:
+        if '\u4e00' <= c <= '\u9fa5':
+            return True
+    return False

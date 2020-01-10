@@ -58,7 +58,7 @@ def process(file_path):
             return
         subtitle_name, download_url = search_result[0], search_result[1]
         subtitle_file_path = file_path_to_subtitle_file_path(file_path, subtitle_name)
-        if not os.path.exists(subtitle_file_path):
+        if True or not os.path.exists(subtitle_file_path):
             print(f"download sub from {download_url} to {subtitle_file_path}")
             download_file(download_url, subtitle_file_path)
     except Exception:

@@ -32,6 +32,7 @@ def download_file(url, save_path):
 
 
 def check_subtitle_exists(file_path):
+    return False
     movie_name = os.path.basename(file_path)
     movie_dir = os.path.dirname(file_path)
     movie_name = movie_name if movie_name.rfind(".") == -1 else movie_name[:movie_name.rfind(".")]

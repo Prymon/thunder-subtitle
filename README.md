@@ -13,5 +13,12 @@ conda create -n python37 python=3.7
 pip install request
 
 ## 3. run
+
+```shell
 cd $thunder-subtitle
+./main.py [scan_path] [overwrite]
+
+eg:
 ./main.py /volume1/z/movie
+./main.py /volume1/z/movie overwrite
+```

@@ -11,7 +11,6 @@ def search(file_path):
     # 获取一个本地电影文件名为cid的hash值
     cid = cid_hash_file(file_path)
     info_list = get_sub_info_list(cid, 100)
-    # print(info_list)
     # find the beast one
     if not info_list:
         return None
@@ -19,6 +18,7 @@ def search(file_path):
         download_url = info['surl']
         if check_is_chinese(download_url):
             return info['sname'], info['surl']
+    print("!!!no chinese sub found", info_list)
     return None
 
 

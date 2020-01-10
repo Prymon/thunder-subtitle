@@ -1,7 +1,30 @@
-import os
-import json
+#!/usr/bin/env python3
+# coding: utf-8
 import hashlib
+import json
+import os
+
 import requests
+
+
+def search(file_path, prefer_language=['简体', '中文', '简', '中', 'implify', 'IMPLIFY', 'hinese', 'HINESE', '繁体', '繁', 'riditional']):
+    # 获取一个本地电影文件名为cid的hash值
+    cid = cid_hash_file(file_path)
+    cid = '26F54DB95A6B26A0B372E8A7EFC1476ADE4A889F'
+    info_list = get_sub_info_list(cid, 100)
+    print(info_list)
+    # find the beast one
+    if not info_list:
+        return None
+    for info in info_list:
+        for lang in prefer_language:
+            if lang in info['language']:
+                return info['sname'], info['surl']
+    for info in info_list:
+        for lang in prefer_language:
+            if lang in info['sname']:
+                return info['sname'], info['surl']
+    return info_list[0]['sname'], info_list[0]['surl']
 
 
 def cid_hash_file(path: str):
@@ -47,3 +70,26 @@ def get_sub_info_list(cid: str, max_retry_times: int = 0):
                 result = result_dict["sublist"]
                 break
     return [i for i in result if i]
+
+
+if __name__ == '__main__':
+    res = search("../main.py")
+    print(json.dumps(res, indent=2, ensure_ascii=False))
+    # def get_url(url):
+    #     response = urllib.request.urlopen(url)
+    #     data = response.read()
+    #     return data
+    #
+    #
+    # def main():
+    #     import argparse
+    #     parser = argparse.ArgumentParser()
+    #     parser.add_argument('path', help='movie path')
+    #     parser.add_argument('-i', '--index', type=int, help='index to download')
+    #     args = parser.parse_args()
+    #
+    #     info_list = search(args.path)
+    #
+    #
+    # if __name__ == '__main__':
+    #     main()

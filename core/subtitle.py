@@ -49,7 +49,7 @@ def get_sub_info_list(cid: str, max_retry_times: int = 0):
     :param max_retry_times: 最大重试次数，非正数时会无限次重试直到获得正确结果
     :return: 字幕信息列表，超过最大重试次数还未获得正确结果时会返回None。
     '''
-    url = "http://sub.xmp.sandai.net:8000/subxl/{cid}.json".format(cid=cid)
+    url = get_info_url(cid)
     result = None
     if max_retry_times <= 0:
         while True:
@@ -87,3 +87,7 @@ def check_contains_chinese(unicode_str):
         if '\u4e00' <= c <= '\u9fa5':
             return True
     return False
+
+
+def get_info_url(cid):
+    return "http://sub.xmp.sandai.net:8000/subxl/{cid}.json".format(cid=cid)

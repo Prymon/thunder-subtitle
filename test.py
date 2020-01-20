@@ -22,8 +22,9 @@ def check_contains_chinese(unicode_str):
 
 
 if __name__ == '__main__':
-    url1 = 'http://subtitle.v.geilijiasu.com/D8/BA/D8BAA139D8A49C5BC26C1326CF6DE5FF10157006.srt'
-
-    r1 = requests.get(url1)
-    print(check_is_chinese(r1.content))
-    print(r1.content.decode('gbk'))
+    # url1 = 'http://subtitle.v.geilijiasu.com/D8/BA/D8BAA139D8A49C5BC26C1326CF6DE5FF10157006.srt'
+    #
+    # r1 = requests.get(url1)
+    # print(check_is_chinese(r1.content))
+    # print(r1.content.decode('gbk'))
+    from charset_normalizer import detect

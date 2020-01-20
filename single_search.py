@@ -12,7 +12,7 @@ if __name__ == '__main__':
     path = argv[1]
     cid = cid_hash_file(path)
     url = get_info_url(cid)
-    print(f"get hash ${cid} from file ${path}")
-    print(f"request from ${url}")
+    print(f"get hash {cid} from file {path}")
+    print(f"request from {url}")
     result = search(path)
-    print(f"result ${result}")
+    print(f"result {result}")
